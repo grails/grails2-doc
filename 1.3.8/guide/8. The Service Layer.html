@@ -1,5 +1,14 @@
 <html>
     <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-82213539-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-82213539-2');
+</script>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
         <title>8. The Service Layer</title>
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
@@ -28,7 +37,7 @@ The result is that all methods are wrapped in a transaction and automatic rollba
 Checked exceptions do <strong class="bold">not</strong> have any effect on the transaction, i.e. the transaction is not automatically rolled back. This is the default Spring behaviour and it's important to understand the distinction between checked and unchecked (runtime) exceptions.
 </blockquote><p class="paragraph"/><h3>Custom Transaction Configuration</h3><p class="paragraph"/>Grails also fully supports Spring's <code>Transactional</code> annotation for cases where you need more fine-grained control over transactions at a per-method level or need specify an alternative propagation level:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">import</span> org.springframework.transaction.annotation.&#42;<p class="paragraph"/>class BookService &#123;<p class="paragraph"/>	@Transactional(readOnly = <span class="java&#45;keyword">true</span>) 
 	def listBooks() &#123; Book.list() &#125;<p class="paragraph"/>	@Transactional def updateBook() &#123; 
-		// É 
+		// ï¿½ 
 	&#125;<p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>For more information refer to the section of the Spring user guide on <a href="http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/transaction.html#transaction-declarative-annotations" target="blank">Using @Transactional</a>.<p class="paragraph"/><blockquote class="note">
 Unlike Spring you do not need any prior configuration to use <code>Transactional</code>, just specify the annotation as needed and Grails will pick them up automatically.
 </blockquote><p class="paragraph"/><blockquote class="warning">

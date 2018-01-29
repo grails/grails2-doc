@@ -1,5 +1,14 @@
 <html>
      <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-82213539-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-82213539-2');
+</script>
      	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
      	<title>8. The Service Layer</title>
      	<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8">
@@ -22,7 +31,7 @@ Warning: <a href="../guide/single.html#8.3 Dependency Injection and Services" cl
 </blockquote><p class="paragraph"/>
 The result is all methods are wrapped in a transaction and automatic rollback occurs if an exception is thrown in the body of one of the methods. The propagation level of the transaction is by default set to <a href="http://static.springframework.org/spring/docs/2.0.x/api/org/springframework/transaction/TransactionDefinition.html#PROPAGATION_REQUIRED" target="blank">PROPAGATION_REQUIRED</a>.<p class="paragraph"/><h3>Custom Transaction Configuration</h3><p class="paragraph"/>Grails also fully supports Spring's <code>Transactional</code> annotation for cases where you need more fine-grained control over transactions at a per-method level or need specify an alternative propagation level:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">import</span> org.springframework.transaction.annotation.&#42;<p class="paragraph"/>class BookService &#123;<p class="paragraph"/>	@Transactional(readOnly = <span class="java&#45;keyword">true</span>) 
 	def listBooks() &#123; Book.list() &#125;<p class="paragraph"/>	@Transactional def updateBook() &#123; 
-		// É 
+		// ï¿½ 
 	&#125;<p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>For more information refer to the section of the Spring user guide on <a href="http://static.springsource.org/spring/docs/2.5.x/reference/transaction.html#transaction-declarative-annotations" target="blank">Using @Transactional</a>.<p class="paragraph"/><blockquote class="note">
 Unlike Spring you do not need any prior configuration to use <code>Transactional</code>, just specify the annotation as needed and Grails will pick them up automatically.
 </blockquote><h2><a name="8.2 Scoped Services">8.2 Scoped Services</a></h2>By default, access to service methods is not synchronised, so nothing prevents concurrent execution of those functions. In fact, because the service is a singleton and may be used concurrently, you should be very careful about storing state in a service. Or take the easy (and better) road and never store state in a service.<p class="paragraph"/>You can change this behaviour by placing a service in a particular scope. The supported scopes are:
